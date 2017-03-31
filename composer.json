@@ -1,5 +1,5 @@
 {
-    "name": "wampirusy/xls-bundle",
+    "name": "arodiss/xls-bundle",
     "type": "symfony-bundle",
     "description": "Excel files manipulation for Symfony2",
     "keywords": ["excel", "xls", "export", "import"],
