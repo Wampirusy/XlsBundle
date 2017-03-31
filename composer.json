@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Excel files manipulation for Symfony2",
     "keywords": ["excel", "xls", "export", "import"],
-    "homepage": "https://github.com/arodiss/xls-bundle",
+    "homepage": "https://github.com/Wampirusy/XlsBundle",
     "license": "MIT",
     "authors": [
         {
@@ -18,7 +18,7 @@
         "phpoffice/phpexcel": "1.8.*"
     },
     "autoload": {
-        "psr-0": { "Arodiss\\XlsBundle": "" }
+        "psr-0": { "Wampirusy\\XlsBundle": "" }
     },
-    "target-dir": "Arodiss/XlsBundle"
+    "target-dir": "Wampirusy/XlsBundle"
 }
