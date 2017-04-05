@@ -11,6 +11,8 @@ def run(argv):
   parser.add_argument('--action')
   parser.add_argument('--file')
   parser.add_argument('--max-empty-rows', dest="max_empty_rows")
+  parser.add_argument('--count-empty-rows', dest="count_empty_rows", default=True)
+  parser.add_argument('--read-empty-rows', dest="read_empty_rows", default=False)
   args = parser.parse_args()
 
   if False == os.path.isfile(args.file):

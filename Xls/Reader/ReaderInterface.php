@@ -29,7 +29,7 @@ interface ReaderInterface
      * @param int $maxCountEmptyRows
      * @return \Iterator
      */
-    public function getRowsNumber($path, $maxCountEmptyRows = null);
+    public function getRowsNumber($path);
 
     /**
      * @param string $path
