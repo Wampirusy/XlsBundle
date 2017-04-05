@@ -13,7 +13,8 @@ def run(argv):
   parser.add_argument('--action')
   parser.add_argument('--file')
   parser.add_argument('--max-empty-rows', dest="max_empty_rows", default=0)
-  parser.add_argument('--process-empty-rows', dest="process_empty_rows", default=False)
+  parser.add_argument('--count-empty-rows', dest="count_empty_rows", default=True)
+  parser.add_argument('--read-empty-rows', dest="read_empty_rows", default=False)
   args = parser.parse_args()
 
   if False == os.path.isfile(args.file):
@@ -27,7 +28,7 @@ def run(argv):
 
   if args.action == "count":
     max_count_empty_rows = int(args.max_empty_rows)
-    process_empty_rows = bool(args.process_empty_rows)
+    count_empty_rows = bool(args.count_empty_rows)
     rows_count = 0
     empty_rows_count = 0
     for row in sheet.iter_rows(row_offset=int(1) - 1):
@@ -38,7 +39,7 @@ def run(argv):
           continue
         else:
           current_row_read.append(True)
-          if process_empty_rows:
+          if count_empty_rows:
             rows_count += empty_rows_count
           empty_rows_count = 0
           break
@@ -51,29 +52,29 @@ def run(argv):
     print(rows_count)
   elif args.action == "read":
     max_count_empty_rows = int(args.max_empty_rows)
-    process_empty_rows = bool(args.process_empty_rows)
+    read_empty_rows = bool(args.read_empty_rows)
     empty_rows_count = 0
     rows = []
     for row in sheet.iter_rows(row_offset=int(args.start) - 1):
-        current_row_read = []
-        for cell in row:
-            value = cell.value
-            if isinstance(value, (int, long, float)):
-                current_row_read.append(str(value))
-            elif value is None:
-                current_row_read.append("")
-            elif isinstance(value, (datetime.datetime)):
-                current_row_read.append(value.strftime("%m/%d/%Y"))
-            elif isinstance(value, (str, unicode)):
-                current_row_read.append(value.encode('utf-8'))
-            else:
-                raise TypeError(type(value))
-        if any(current_row_read) or process_empty_rows:
-            rows.append(current_row_read)
+      current_row_read = []
+      for cell in row:
+        value = cell.value
+        if isinstance(value, (int, long, float)):
+          current_row_read.append(str(value))
+        elif value is None:
+          current_row_read.append("")
+        elif isinstance(value, (datetime.datetime)):
+          current_row_read.append(value.strftime("%m/%d/%Y"))
+        elif isinstance(value, (str, unicode)):
+          current_row_read.append(value.encode('utf-8'))
         else:
-            empty_rows_count += 1
-        if len(rows) >= int(args.size) or max_count_empty_rows < empty_rows_count:
-          break
+          raise TypeError(type(value))
+      if any(current_row_read) or read_empty_rows:
+        rows.append(current_row_read)
+      else:
+        empty_rows_count += 1
+      if len(rows) >= int(args.size) or max_count_empty_rows < empty_rows_count:
+        break
     print(json.dumps(rows))
   else:
     print("Unknown command")

@@ -31,7 +31,7 @@ class PhpofficeReader extends ReaderAbstract implements ReaderInterface
     }
 
     /** {@inheirtdoc} */
-    public function getRowsNumber($path, $maxCountEmptyRows = null)
+    public function getRowsNumber($path)
     {
         return $this->getExcel($path)->getHighestRow();
     }
